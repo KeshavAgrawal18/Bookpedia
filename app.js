@@ -58,6 +58,17 @@ app.post("/add", (req, res) => {
   res.redirect("/");
 });
 
+app.post("/delete/:id", (req, res) => {
+    Book.deleteOne({id: req.params.id}) 
+    .then(() => {
+        res.redirect("/");
+})
+    .catch((err) => {
+            console.log(err);
+        });
+
+    });
+
 app.listen(PORT, (req, res) => {
   console.log("App is listening on port " + PORT);
 });

@@ -10,8 +10,14 @@
                 <br>
                <h4>Summary</h4>
                <p><%= book.summary %></p>
-               <br>
-               <button>Delete</button>
+               <br>               
+               <form action="/delete/<%= book.id %>" method="post">
+                   <button>Update</button>
+               </form>
+               <form action="/delete/<%= book.id %>" method="post">
+                   <button>Delete</button>
+               </form>
+
     </div>
     </div>
 
