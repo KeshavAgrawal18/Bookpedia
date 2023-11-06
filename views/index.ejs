@@ -1,0 +1,38 @@
+<%- include('partials/navbar.ejs') %>
+
+<main>
+    <div class="container">
+        <h1>Books</h1>
+        <br>
+        <div class="search">
+            <form method="post" action="/search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search book by title" name="query" class="search-input" />
+                    <button type="submit" id="search" class="add-button">Search</button>
+
+                    <button class="add-button"><a href="/add">Add a Book</a></button>
+                </div>
+            </form>
+        </div>
+        <br>
+        <div class="book-list">
+        <table>
+            <tr class="head-row">
+                <th>Book Id</th>
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+            <tr>
+                <td>1234</td>
+                <td>Physics</td>
+                <td>Sharma</td>
+            </tr>
+        </table>
+    </div>
+    </div>
+
+
+
+    </body>
+
+    </html>
