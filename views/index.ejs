@@ -22,11 +22,13 @@
                 <th>Title</th>
                 <th>Author</th>
             </tr>
+            <% for(let i=0; i<books.length; i++) { %>
             <tr>
-                <td>1234</td>
-                <td>Physics</td>
-                <td>Sharma</td>
+                <td><%= books[i].id %></td>
+                <td><%= books[i].title %></td>
+                <td><%= books[i].author %></td>
             </tr>
+            <% } %>
         </table>
     </div>
     </div>
