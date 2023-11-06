@@ -1,6 +1,5 @@
 <%- include('partials/navbar.ejs') %>
 
-<main>
     <div class="container">
         <h1>Books</h1>
         <br>
@@ -16,25 +15,28 @@
         </div>
         <br>
         <div class="book-list">
-        <table>
-            <tr class="head-row">
-                <th>Book Id</th>
-                <th>Title</th>
-                <th>Author</th>
-            </tr>
-            <% for(let i=0; i<books.length; i++) { %>
-            <tr>
-                <td><%= books[i].id %></td>
-                <td><%= books[i].title %></td>
-                <td><%= books[i].author %></td>
-            </tr>
-            <% } %>
-        </table>
+            <table>
+                <tr class="head-row">
+                    <th>Book Id</th>
+                    <th>Title</th>
+                    <th>Author</th>
+                </tr>
+                <% for(let i=0; i<books.length; i++) { %>
+                    <tr>
+                        <td><a href="/books/<%= books[i].id %>">
+                                <%= books[i].id %>
+                            </a></td>
+                        <td>
+                            <%= books[i].title %>
+                        </td>
+                        <td>
+                            <%= books[i].author %>
+                        </td>
+                    </tr>
+                    <% } %>
+            </table>
+        </div>
     </div>
-    </div>
-
-
-
+    
     </body>
-
     </html>

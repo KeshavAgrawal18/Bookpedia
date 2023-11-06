@@ -1,11 +1,11 @@
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const Book = require("./bookmodel");
 const bodyParser = require("body-parser");
-let num =0;
+let num = 0;
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public/"));
@@ -20,35 +20,44 @@ db.once("open", function () {
   console.log("Connected to MongoDB...");
 });
 
-
 app.get("/", (req, res) => {
-    Book.find()
+  Book.find()
     .then((books) => {
-        res.render("index", {
+      res.render("index", {
         books: books,
-        });
+      });
     })
-    .catch(error => {
-        console.log(error);
+    .catch((error) => {
+      console.log(error);
     });
 });
 
 app.get("/add", (req, res) => {
-    res.render("add");
+  res.render("add");
+});
+
+app.get("/books/:id", (req, res) => {
+
+    Book.find({id: req.params.id})
+    .then((book) => {
+        res.render("book", {
+            book: book[0],
+        })
+    });
 });
 
 app.post("/add", (req, res) => {
-    const book = new Book({
-        id: "" + num%100 + num%10 + num,
-        title: req.body.title,
-        author: req.body.author,
-        summary: req.body.summary,
-    });
+  const book = new Book({
+    id: "" + (num % 100) + (num % 10) + num,
+    title: req.body.title,
+    author: req.body.author,
+    summary: req.body.summary,
+  });
 
-    book.save();
-    res.redirect("/");
+  book.save();
+  res.redirect("/");
 });
 
 app.listen(PORT, (req, res) => {
-    console.log("App is listening on port " + PORT);
+  console.log("App is listening on port " + PORT);
 });
