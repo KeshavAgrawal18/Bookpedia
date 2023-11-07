@@ -41,7 +41,9 @@ app.get("/books/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
       if (book.length == 0) {
-        res.render("notexist");
+        res.render("message",{ 
+          message: "notexist"
+      });
       } else {
         res.render("book", {
           book: book[0],
@@ -57,7 +59,9 @@ app.get("/confirm/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
       if (book.length == 0) {
-        res.render("notexist");
+        res.render("message",{ 
+          message: "notexist"
+      });
       } else {
         res.render("confirm", {
           book: book[0],
@@ -73,7 +77,9 @@ app.get("/update/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
       if (book.length == 0) {
-        res.render("notexist");
+        res.render("message",{ 
+          message: "notexist"
+      });
       } else {
         res.render("update", {
           book: book[0],
@@ -105,24 +111,41 @@ app.post("/search", (req, res) => {
 });
 
 app.post("/add", (req, res) => {
-  const book = new Book({
-    bookId: req.body.bookId,
-    title: req.body.title,
-    author: req.body.author,
-    summary: req.body.summary,
-  });
 
-  book.save();
-  num++;
-  console.log("num: " + num);
-  res.redirect("/");
+  Book.find({ bookId: req.body.bookId })
+    .then((book) => {
+      if (book.length == 0) {
+        const book = new Book({
+          bookId: req.body.bookId,
+          title: req.body.title,
+          author: req.body.author,
+          summary: req.body.summary,
+        });
+      
+        book.save();
+        num++;
+        console.log("num: " + num);
+        res.redirect("/");
+      } else {
+        res.render("message", {
+          message: "exist"
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+ 
 });
 
 app.post("/delete/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
       if (book.length == 0) {
-        res.render("notexist");
+        res.render("message",{ 
+          message: "notexist"
+      });
       } else {
         Book.deleteOne({ bookId: req.params.bookId })
           .then(() => {

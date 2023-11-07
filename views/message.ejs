@@ -2,8 +2,12 @@
 
 <div class="container">
     <br>
+    <% if(message=="notexist") { %>
     <p>Book doen't exist in database or something went wrong</p>
     <br>
+    <% } else { %>
+    <p>Book already exist in database or something went wrong</p>
+    <% } %>
 </div>
 
 </body>
