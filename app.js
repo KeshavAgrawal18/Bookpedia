@@ -32,25 +32,6 @@ app.get("/", (req, res) => {
     });
 });
 
-app.post("/search", (req, res) => {
-  Book.find()
-  .then((books) => {
-    let results = [];
-    for(let i=0; i<books.length; i++){
-      if(books[i].title.includes(req.body.query)){
-        
-        results.push(books[i]);
-      }
-    }
-    console.log(results);
-    res.render("index", {
-      books: results,
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-});
 
 app.get("/add", (req, res) => {
   res.render("add");
@@ -59,9 +40,13 @@ app.get("/add", (req, res) => {
 app.get("/books/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
-      res.render("book", {
-        book: book[0],
-      });
+      if (book.length == 0) {
+        res.render("notexist");
+      } else {
+        res.render("book", {
+          book: book[0],
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -71,9 +56,13 @@ app.get("/books/:bookId", (req, res) => {
 app.get("/confirm/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
-      res.render("confirm", {
-        book: book[0],
-      });
+      if (book.length == 0) {
+        res.render("notexist");
+      } else {
+        res.render("confirm", {
+          book: book[0],
+        });
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -83,8 +72,31 @@ app.get("/confirm/:bookId", (req, res) => {
 app.get("/update/:bookId", (req, res) => {
   Book.find({ bookId: req.params.bookId })
     .then((book) => {
-      res.render("update", {
-        book: book[0],
+      if (book.length == 0) {
+        res.render("notexist");
+      } else {
+        res.render("update", {
+          book: book[0],
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
+app.post("/search", (req, res) => {
+  Book.find()
+    .then((books) => {
+      let results = [];
+      for (let i = 0; i < books.length; i++) {
+        if (books[i].title.includes(req.body.query)) {
+          results.push(books[i]);
+        }
+      }
+      console.log(results);
+      res.render("index", {
+        books: results,
       });
     })
     .catch((error) => {
@@ -107,12 +119,22 @@ app.post("/add", (req, res) => {
 });
 
 app.post("/delete/:bookId", (req, res) => {
-  Book.deleteOne({ bookId: req.params.bookId })
-    .then(() => {
-      res.redirect("/");
+  Book.find({ bookId: req.params.bookId })
+    .then((book) => {
+      if (book.length == 0) {
+        res.render("notexist");
+      } else {
+        Book.deleteOne({ bookId: req.params.bookId })
+          .then(() => {
+            res.redirect("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
     });
 });
 
