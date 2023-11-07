@@ -1,0 +1,23 @@
+<%- include('partials/navbar.ejs') %>
+
+<div class="container">
+    <p> <b> Book bookId: </b>
+        <%= book.bookId %>
+    </p>
+    <br>
+    <p><b>Title</b></p>
+    <form action="/update/<%= book.bookId %>/" method="post">
+        <textarea name="title"><%= book.title %></textarea>
+        <br>
+        <p> <b> Author: </b> </p>
+        <textarea name="author"><%= book.author %></textarea>
+        <br>
+        <h4>Summary</h4>
+        <textarea name="summary"><%= book.summary %></textarea>
+        <button>Update</button>
+    </form>
+    <br>
+</div>
+</div>
+ </body>
+ </html>

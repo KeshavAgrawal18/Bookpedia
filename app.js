@@ -5,7 +5,7 @@ const PORT = process.env.PORT;
 const mongoose = require("mongoose");
 const Book = require("./bookmodel");
 const bodyParser = require("body-parser");
-let num = 0;
+let num = 1;
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public/"));
@@ -36,53 +36,81 @@ app.get("/add", (req, res) => {
   res.render("add");
 });
 
-app.get("/books/:id", (req, res) => {
-
-    Book.find({id: req.params.id})
+app.get("/books/:bookId", (req, res) => {
+  Book.find({ bookId: req.params.bookId })
     .then((book) => {
-        res.render("book", {
-            book: book[0],
-        })
+      res.render("book", {
+        book: book[0],
+      });
     })
     .catch((error) => {
-        console.log(error);
+      console.log(error);
     });
 });
 
-app.get("/confirm/:id", (req, res) => {
-  Book.find({id: req.params.id})
-  .then((book) => {
-    res.render("confirm", {
+app.get("/confirm/:bookId", (req, res) => {
+  Book.find({ bookId: req.params.bookId })
+    .then((book) => {
+      res.render("confirm", {
         book: book[0],
+      });
     })
-})
-.catch((error) => {
-    console.log(error);
+    .catch((error) => {
+      console.log(error);
+    });
 });
+
+app.get("/update/:bookId", (req, res) => {
+  Book.find({ bookId: req.params.bookId })
+    .then((book) => {
+      res.render("update", {
+        book: book[0],
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
 
 app.post("/add", (req, res) => {
   const book = new Book({
-    id: "" + (num % 100) + (num % 10) + num,
+    bookId: req.body.bookId,
     title: req.body.title,
     author: req.body.author,
     summary: req.body.summary,
   });
 
   book.save();
+  num++;
+  console.log("num: " + num);
   res.redirect("/");
 });
 
-app.post("/delete/:id", (req, res) => {
-    Book.deleteOne({id: req.params.id}) 
+app.post("/delete/:bookId", (req, res) => {
+  Book.deleteOne({ bookId: req.params.bookId })
     .then(() => {
-        res.redirect("/");
-})
+      res.redirect("/");
+    })
     .catch((err) => {
-            console.log(err);
-        });
-
+      console.log(err);
     });
+});
+
+app.post("/update/:bookId", async (req, res) => {
+  const { bookId } = req.params;
+  const updateData = req.body;
+  try {
+    const result = await Book.findOneAndUpdate(
+      { bookId: bookId },
+      { $set: updateData },
+      { new: true }
+    );
+    res.redirect("/");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Update failed" });
+  }
+});
 
 app.listen(PORT, (req, res) => {
   console.log("App is listening on port " + PORT);

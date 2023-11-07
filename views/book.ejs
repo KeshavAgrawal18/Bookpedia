@@ -1,28 +1,34 @@
 <%- include('partials/navbar.ejs') %>
 
-<main>
-    <div class="container">
-        <h3>
-            <%= book.title %>
-        </h3> 
-               <p> <b> Book Id: </b> <%= book.id %> </p>
-               <p> <b> Author: </b> <%= book.author %> </p>
-                <br>
-               <h4>Summary</h4>
-               <p><%= book.summary %></p>
-               <br>               
-               <form action="/update/<%= book.id %>" method="post" style="display: inline-block; margin: 10px;">
-                   <button>Update</button>
-               </form>
-               <form action="/confirm/<%= book.id %>" method="get" style="display: inline-block; margin: 10px;">
-                   <button>Delete</button>
-               </form>
+    <main>
+        <div class="container">
+            <h3>
+                <%= book.title %>
+            </h3>
+            <p> <b> Book Id: </b>
+                <%= book.bookId %>
+            </p>
+            <p> <b> Author: </b>
+                <%= book.author %>
+            </p>
+            <br>
+            <h4>Summary</h4>
+            <p>
+                <%= book.summary %>
+            </p>
+            <br>
+            <form action="/update/<%= book.bookId %>" method="get" style="display: inline-block; margin: 10px;">
+                <button>Update</button>
+            </form>
+            <form action="/confirm/<%= book.bookId %>" method="get" style="display: inline-block; margin: 10px;">
+                <button>Delete</button>
+            </form>
 
-    </div>
-    </div>
+        </div>
+        </div>
 
 
 
-    </body>
+        </body>
 
-    </html>
+        </html>

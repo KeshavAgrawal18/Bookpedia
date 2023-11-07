@@ -23,8 +23,8 @@
                 </tr>
                 <% for(let i=0; i<books.length; i++) { %>
                     <tr>
-                        <td><a href="/books/<%= books[i].id %>">
-                                <%= books[i].id %>
+                        <td><a href="/books/<%= books[i].bookId %>">
+                                <%= books[i].bookId %>
                             </a></td>
                         <td>
                             <%= books[i].title %>
@@ -37,6 +37,7 @@
             </table>
         </div>
     </div>
-    
+
     </body>
+
     </html>
