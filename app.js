@@ -43,7 +43,22 @@ app.get("/books/:id", (req, res) => {
         res.render("book", {
             book: book[0],
         })
+    })
+    .catch((error) => {
+        console.log(error);
     });
+});
+
+app.get("/confirm/:id", (req, res) => {
+  Book.find({id: req.params.id})
+  .then((book) => {
+    res.render("confirm", {
+        book: book[0],
+    })
+})
+.catch((error) => {
+    console.log(error);
+});
 });
 
 app.post("/add", (req, res) => {

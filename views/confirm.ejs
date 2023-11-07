@@ -1,0 +1,11 @@
+<%- include('partials/navbar.ejs') %>
+
+<div class="container">
+    <h1>Do you ant to delete book <%= book.title %></h1>
+    <form action="/delete/<%= book.id %>"method="post" style="display: inline-block; margin: 10px;">
+        <button type="submit">Yes</button>
+    </form>
+    <form action="/books/<%= book.id %>" method="post" style="display: inline-block; ">    
+        <button type="submit">No</button>
+    </form>
+</div>
