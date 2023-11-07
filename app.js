@@ -32,6 +32,26 @@ app.get("/", (req, res) => {
     });
 });
 
+app.post("/search", (req, res) => {
+  Book.find()
+  .then((books) => {
+    let results = [];
+    for(let i=0; i<books.length; i++){
+      if(books[i].title.includes(req.body.query)){
+        
+        results.push(books[i]);
+      }
+    }
+    console.log(results);
+    res.render("index", {
+      books: results,
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+});
+
 app.get("/add", (req, res) => {
   res.render("add");
 });

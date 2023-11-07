@@ -34,7 +34,12 @@
                         </td>
                     </tr>
                     <% } %>
-            </table>
+                </table>
+                <% if(books.length==0) { %>
+                    <br>
+                   <p>No Books available</p> 
+                   <br>
+                <% } %>
         </div>
     </div>
 
