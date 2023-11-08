@@ -8,6 +8,9 @@ A RESTful API for managing books, built with Node.js and MongoDB.
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
+- [API Endpoints](#api-endpoints)
+- [Deployment](#deployment)
+- [Assumptions](#assumptions)
 - [Author](#author)
 
 ## Introduction
@@ -100,8 +103,8 @@ npm start
 - Description: Add a new book to the database.
 - Request: Accepts book details in the request body.
 - Response: Adds a new book to the database if it doesn't already exist. If the book exists, it returns an "exist" message.
-D
-8. elete Book by ID
+
+8. Delete Book by ID
 - URL: POST /delete/:bookId
 - Description: Delete a book by its ID.
 - Request: Accepts the book ID as a parameter.
@@ -112,6 +115,11 @@ D
 - Description: Update a book's details by its ID.
 - Request: Accepts the book ID as a parameter and updated data in the request body.
 - Response: Updates the book's details if it exists or returns an error message if the update fails.
+
+
+## Deployment
+
+You can access the deployed Node.js Bookstore API at [https://bookpedia-yib7.onrender.com](https://bookpedia-yib7.onrender.com/).
 
 
 ## Assumptions
